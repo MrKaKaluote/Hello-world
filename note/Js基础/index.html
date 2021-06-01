@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js变量提升</title>
+</head>
+<body>
+	<div id="xxx"></div>
+	<img src='xxx.jpg'>
+</body>
+<script type="text/javascript">
+
+	// window.onerror = (...args) => {
+	//   console.log('onerror:',args)
+	// }
+	window.addEventListener('error', args => {
+    console.log(
+      'error event:', args
+    );
+    return true;
+  },
+  true // 利用捕获方式
+);
+
+	console.log(a.b.c)
+
+	// console.log(fun)
+	// var fun = 1
+	// function fun() {
+		// console.log(666)
+	// }
+
+	// console.log(1) // 由于此法解析时出现重复声明报错，此行代码将不会执行
+	// let a = 12
+	// console.log(a)
+	// let a = 13
+	// console.log(a)
+
+	// console.log(1)
+	// console.log(a)
+	// let a = 1
+
+	// console.log(a)
+	// if (!('a' in window)) {
+	// 	var  a = 1
+	// }
+	// console.log(a)
+	
+	// console.log(fun)
+	// fun()
+	// if (!('fun' in window)) {
+	// 	function fun() {}
+	// }
+	// console.log(fun)
+
+
+	// console.log(a,b,c)
+	// var a = 12, b = 13, c = 14
+	// function fn(a) {
+	// 	console.log(a,b,c)
+	// 	a = 100
+	// 	c = 200
+	// 	console.log(a,b,c)
+	// }
+	// b = fn(10)
+	// console.log(a,b,c)
+
+
+	// var n = 1
+	// function fn() {     // 函数在此创建，所以此函数的父级作用域永远都是全局作用域
+	//   var n = 2
+	//   function f() {    // 函数在此创建，所以此函数的父级作用域永远都是函数fn做创建的作用域
+	//     n--
+	//     console.log(n)  // => 1 局部变量减1
+	//   }
+	//   f()
+	//   return f
+	// }
+	// var x = fn()        
+	// x()                 // => 0 局部变量减2
+	// console.log(n)      // => 1 全局变量
+
+
+	// let obj = {
+	//   fn:(function(n){
+	//     console.log(this) // => window
+	//     return function() {
+	//       console.log(this) // => obj
+	//     }
+	//   })(10)
+	// }
+
+	// obj.fn()
+
+
+	// var a = 1
+	// console.log(window.a)
+
+
+	// let a = 1
+	// function fn() {
+	// 	let a = 2
+	// 	console.log(a)
+	// }
+	// fn()
+
+
+	// var a = 1
+	// alert(++a)
+
+
+	// function Fn(n) {
+	// 	let m = 10
+	// 	this.total = n + m
+	// 	this.say = function() {
+	// 		console.log(this.total)
+	// 	}
+	// }
+
+	// let f1 = new Fn(20)
+	// console.log(f1.say())
+
+	// setTimeout(() => {console.log(1)},0)
+	// setTimeout(function(){
+	//   console.log('1')
+	// },0);
+ 
+	// new Promise(function(resolve){
+	// 	console.log('2');
+	// 	resolve();
+	// }).then(function(){
+	// 	console.log('3')
+	// });
+	// console.log('4');
+
+	// setTimeout(() => console.log('setTimeout1'), 0);  //1宏任务
+	// setTimeout(() => {        //2宏任务
+	//     console.log('setTimeout2');
+	//     Promise.resolve().then(() => {
+	//         console.log('promise3');
+	//         Promise.resolve().then(() => {
+	//             console.log('promise4');
+	//         })
+	//         console.log(5)
+	//     })
+	//     setTimeout(() => console.log('setTimeout4'), 0);  //4宏任务
+	// }, 0);
+	// setTimeout(() => console.log('setTimeout3'), 0);  //3宏任务
+	// Promise.resolve().then(() => {//1微任务
+	//     console.log('promise1');
+	// })
+
+	// 	console.log('1')
+	// setTimeout(function() {
+	//   console.log('2')
+	//   process.nextTick(function() {
+	//     console.log('3')
+	//   })
+	//   new Promise(resolve => {
+	//     console.log('4')
+	//     resolve()
+	//   }).then(function() {
+	//     console.log('5')
+	//   })
+	// })
+	// process.nextTick(function() {
+	//   console.log('6')
+	// })
+	// new Promise(function(resolve) {
+	//   console.log('7')
+	// }).then(function(){
+	//   console.log('8')
+	// })
+	// setTimeout(() => {
+	//   console.log('9')
+	//   process.nextTick(() => {
+	//     console.log('10')
+	//   })
+	//   new Promise(resolve => {
+	//     console.log('11')
+	//     resolve()
+	//   }).then(() => {
+	//     console.log('12')
+	//   })
+	// })
+	// 	new Promise(resolve => {
+	//   resolve()
+	// }).then(() => {
+	//   console.log('promise4')
+	// }).then(() => {
+	//   console.log('promise5')
+	// })
+	// new Promise( function ( resolve ) {
+	//   console.log( 'promise1' )//4
+	//   resolve();
+	// } ).then( function () {
+	//   console.log( 'promise2' ) //6
+	// } ).then(() => {
+	//   console.log('promise3')
+	// })
+
+	// const a = async() => {
+	// 	console.log(1)
+	// 	await b()
+	// 	console.log(2)
+	// }
+
+	// var b = () => new Promise((resolve,reject) => {
+	// 	console.log(3)
+	// 	setTimeout(() => {
+	// 		console.log(4)
+	// 		resolve()
+	// 	},1000)
+	// 	console.log(5)
+	// })
+	// a()
+
+
+	// const a = async () => {
+	//   console.log(1)
+	//   const aaa = await b()
+	//   aaa()
+	//   console.log(2)
+	// }
+	// const b = () => Promise.resolve(() => {
+	//     console.log(3)
+	//     setTimeout(() => {
+	//       console.log(4)
+	//     })
+	//     console.log(5)
+	//   })
+	// a()
+
+
+
+</script>
+</html>

@@ -1,0 +1,100 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-02-19 21:16:11
+ * @LastEditTime: 2021-02-20 08:10:34
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /excess/javascript/promise/index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const STATUS = {
+            PENDING: 'PENDING',
+            FULLFILLED: 'FULLFILLED',
+            REJECTED: 'REJECTED'
+        }
+        class MPromise {
+            constructor(exector) {
+                // 静态变量
+                this.state = STATUS.PENDING
+                this.fullValue = undefined
+                this.rejectReson = undefined
+                // 使用发布订阅模式，异步执行then里的resolve和reject方法
+                this.ONFULLCALLBACKS = []
+                this.ONREJECTCALLBACKS = []
+
+                const resolve = (value) => {
+                    if (this.state === STATUS.PENDING) {
+                        this.state = STATUS.FULLFILLED
+                        this.fullValue = value
+                        this.ONFULLCALLBACKS.forEach(fn => fn())
+                    }
+                }
+
+                const reject = (reason) => {
+                    if (this.state === STATUS.PENDING) {
+                        this.state = STATUS.REJECTED
+                        this.rejectReson = reason
+                        this.ONFULLCALLBACKS.forEach(fn => fn())
+                    }
+                }
+
+                try {
+                    exector(resolve, reject)
+                } catch (e) {
+                    reject(e)
+                }
+            }
+            then(resolve, reject) {
+                if (this.state === STATUS.FULLFILLED) {
+                    resolve(this.fullValue)
+                }
+                if (this.state === STATUS.REJECTED) {
+                    reject(this.rejectReson)
+                }
+
+                // 异步的时候会走这里
+                if (this.state === STATUS.PENDING) {
+                    this.ONFULLCALLBACKS.push(() => {
+                        resolve(this.fullValue)
+                    })
+                    this.ONREJECTCALLBACKS.push(() => {
+                        reject(this.rejectReson)
+                    })
+                }
+            }
+        }
+
+
+        // const P = new MPromise((resolve, reject) => { // resolve, reject为回调函数
+        //     // throw new Error('')
+        //     resolve('success')
+        //     reject('fail')
+        // }).then((value) => {
+        //     console.log(value)
+        // }, (reason) => {
+        //     console.log(reason)
+        // })
+
+        const P = new MPromise((resolve, reject) => { // resolve, reject为回调函数
+            setTimeout(() => { // 因为then方法里只处理了成功和失败的状态，因为是异步resolve，此时的状态仍然是pending，需要在then里处理pending状态
+                resolve('success')
+            }, 1000)
+        }).then((value) => {
+            console.log(value)
+        }, (reason) => {
+            console.log(reason)
+        })
+    </script>
+</body>
+
+</html>

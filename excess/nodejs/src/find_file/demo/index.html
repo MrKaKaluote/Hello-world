@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style src="./css/index.less"></style>
+</head>
+<body>
+    <view class="memberWrapper">
+        <view class="member-wrapper" :class="{'higher-bg': userType === 1}">
+            <image v-if="userType === 1" class="black-bg-top" src="http://h0.hucdn.com/open201947/ee8800f5e94ea0ef_1125x192.png"></image>
+            <image v-if="userType === 1" class="black-bg-bottom" src="http://h0.hucdn.com/open201947/1bc98ba36a932740_1125x423.png"></image>
+        </view>
+        <view class="member-card" :class="{'top-higher-bg': userType === 1}">
+            <view v-if="isRegistered" class="user-info" @click="toPage('person_info')">
+                <image class="user-avatar" :src="userInfo.avatar || 'http://h0.hucdn.com/open201941/9a53b95c551b5c59_135x135.png'"></image>
+                <text class="user-name">{{userInfo.nick || '点击登录/注册'}}</text>
+            </view>
+            <view v-if="!isRegistered" class="user-info">
+                <image class="user-avatar" src="http://h0.hucdn.com/open201941/9a53b95c551b5c59_135x135.png"></image>
+                <text class="user-name">点击登录/注册</text>
+                <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="get-phone-btn"></button>
+            </view>
+            <view class="order-wrapper">
+                <view @click="toPage('my_order')" class="item-box">
+                    <text v-if="isRegistered" class="item-title">{{userInfo.consumptionTotal || 0}}</text>
+                    <text v-if="!isRegistered" class="item-title">-</text>
+                    <text class="item-desc">消费记录</text>
+                </view>
+                <view @click="toPage('coupons_info')" class="item-box">
+                    <text v-if="isRegistered" class="item-title">{{userInfo.couponsTotal || 0}}</text>
+                    <text v-if="!isRegistered" class="item-title">-</text>
+                    <text class="item-desc">优惠券</text>
+                </view>
+                <button v-if="!isRegistered" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="get-phone-btn entry-btn"></button>
+            </view>
+            <view class="line-item"></view>
+        </view>
+
+        <view @click="toPage('member_card')" class="buy-member-wrapper">
+            <view class="to-buy-member">
+                <image class="member-level-text" src="http://h0.hucdn.com/open201947/c361ee09b1b85892_72x90.png"></image>
+                <view class="buy-line"></view>
+                <view class="buy-member-step set-middle" v-if="userType === 0">
+                    <text class="member-step-title">开通金卡会员 享受全场购物95折</text>
+                </view>
+                <view class="buy-member-step" v-if="userType === 1">
+                    <text class="member-step-title">已为您节省¥{{cardTips.saveAmount}}</text>
+                    <view v-if="cardTips.receiveCouponNum < 5" class="member-step-detail">
+                        <text class="member-step-item">再消费</text>
+                        <text class="member-step-item set-high-color">¥{{cardTips.reconsumAmount}}</text>
+                        <text class="member-step-item">可再得一张¥{{cardTips.couponAmount}}无门槛券</text>
+                    </view>
+                    <view v-if="cardTips.receiveCouponNum === 5" class="member-step-detail">
+                        <text class="member-step-item">本月已获得{{cardTips.receiveCouponNum}}张¥{{cardTips.couponAmount}}元券，快去使用吧</text>
+                    </view>
+                </view>
+                <view class="buy-member-step" v-if="userType === 2">
+                    <text class="member-step-title">已为您节省¥{{cardTips.saveAmount}}</text>
+                    <view class="member-step-detail">
+                        <text class="member-step-item">金卡会员于</text>
+                        <text class="member-step-item set-high-color">{{cardTips.expireTime}}</text>
+                        <text class="member-step-item">过期</text>
+                    </view>
+                </view>
+                <text v-if="userType === 0" class="step-detail-btn">立即开通</text>
+                <text v-if="userType === 1" class="step-detail-btn right-arrow"></text>
+                <text v-if="userType === 2" class="step-detail-btn">立即续费</text>
+            </view>
+        </view>
+
+        <view class="member-info">
+            <view @click="toPage('invite_income/my_wallet')" v-if="showMyWallet" class="member-item">
+                <image class="member-img" src="http://h0.hucdn.com/open202006/4ead0834ff8348ba_90x90.png"></image>
+                <view class="member-text">
+                    <text class="member-label">我的钱包</text>
+                    <view class="member-text-score">
+                        <text class="arrow-label">{{balance}}元</text>
+                        <image class="member-info-arrow" src="http://h0.hucdn.com/open201939/d644bc9481d770b5_36x36.png"></image>
+                    </view>
+                </view>
+            </view>
+            <view @click="toPage('invite_income/invite_side')" v-if="showInvitePage" class="member-item">
+                <image class="member-img" src="http://h0.hucdn.com/open202006/bec28273192b0276_90x90.png"></image>
+                <view class="member-text">
+                    <text class="member-label">邀请金卡活动页</text>
+                    <view class="member-text-score">
+                        <image class="member-info-arrow" src="http://h0.hucdn.com/open201939/d644bc9481d770b5_36x36.png"></image>
+                    </view>
+                </view>
+            </view>
+            <view @click="toPage('invite_friends/invite_side')" class="member-item">
+                <image class="member-img" src="http://h0.hucdn.com/open201939/bfaa8ed78d34b574_90x90.png"></image>
+                <view class="member-text">
+                    <text class="member-label">邀请有礼</text>
+                    <view class="member-text-score">
+                        <image class="member-info-arrow" src="http://h0.hucdn.com/open201939/d644bc9481d770b5_36x36.png"></image>
+                    </view>
+                </view>
+            </view>
+            <view @click="toPage('common_questions')" class="member-item">
+                <image class="member-img" src="http://h0.hucdn.com/open201943/432515b9f7784a04_90x90.png"></image>
+                <view class="member-text">
+                    <text class="member-label">常见问题</text>
+                    <view class="member-text-score">
+                        <image class="member-info-arrow" src="http://h0.hucdn.com/open201939/d644bc9481d770b5_36x36.png"></image>
+                    </view>
+                </view>
+            </view>
+            <view @click="showPhoneDialog()" class="member-item">
+                <image class="member-img" src="http://h0.hucdn.com/open201943/abae35304907132f_90x90.png"></image>
+                <view class="member-text">
+                    <text class="member-label">客服热线</text>
+                    <view class="member-text-score">
+                        <image class="member-info-arrow" src="http://h0.hucdn.com/open201939/d644bc9481d770b5_36x36.png"></image>
+                    </view>
+                </view>
+            </view>
+            <view @click="toPage('agreements')" class="member-item">
+                <image class="member-img" src="http://h0.hucdn.com/open201943/214b0e2100be8295_90x90.png"></image>
+                <view class="member-text">
+                    <text class="member-label">隐私政策</text>
+                    <view class="member-text-score">
+                        <image class="member-info-arrow" src="http://h0.hucdn.com/open201939/d644bc9481d770b5_36x36.png"></image>
+                    </view>
+                </view>
+            </view>
+            <view @click="toPage('about_us')" class="member-item clear-border">
+                <image class="member-img" src="http://h0.hucdn.com/open201943/0bc30b1b48cbb253_90x90.png"></image>
+                <view class="member-text">
+                    <text class="member-label">关于我们</text>
+                    <view class="member-text-score">
+                        <image class="member-info-arrow" src="http://h0.hucdn.com/open201939/d644bc9481d770b5_36x36.png"></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <dialog-modal v-if="showPhoneCall" @closeModal="showPhoneCall = false">
+            <text class="toast-title">联系客服</text>
+            <text class="toast-text">400 657 1666</text>
+            <view class="toast-btn-box">
+                <text @click="showPhoneCall = false" class="toast-btn">取消</text>
+                <text @click="makePhoneCall" class="toast-btn confirm-btn">确定</text>
+            </view>
+        </dialog-modal>
+
+        <!-- 获取员工福利 -->
+        <view class="get-card-wrapper" v-if="showGetGift">
+            <view @click="closeGiftDialog" class="get-card-box">
+                <image class="gift-bg" src="http://h0.hucdn.com/open201948/23cf04d4c6294819_1127x960.png"></image>
+                <image @click="closeGiftDialog" class="gift-close" src="http://h0.hucdn.com/open201948/4e0bc7be5da20a21_120x120.png"></image>
+            </view>
+        </view>
+
+    </view>
+</body>
+</html>

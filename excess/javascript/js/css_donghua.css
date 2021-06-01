@@ -1,0 +1,11 @@
+.content {
+    width: 200px;
+    height: 200px;
+    background: red;
+    transition: background 200ms ease-in 50ms;
+}
+
+.content:hover {
+    background: yellow;
+    transition: background 200ms ease-out 50ms;
+}

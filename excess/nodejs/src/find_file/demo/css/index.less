@@ -1,0 +1,320 @@
+@base: 46.875rem;
+body{
+    background-color: aliceblue;
+}
+page {
+    background: #F2F4F6;
+}
+.memberWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 750/@base;
+}
+.member-wrapper {
+    position: relative;
+    background-image: linear-gradient(90deg, #FF335C 0%, #FF1940 100%);
+    height: 360/@base;
+    width: 100%;
+}
+.higher-bg{
+    background-image: linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+    height: 410/@base;
+}
+.black-bg-top{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 128/@base;
+}
+.black-bg-bottom{
+    position: absolute;
+    top: 128/@base;
+    left: 0;
+    height: 282/@base;
+    width: 100%;
+}
+.user-info{
+    position: absolute;
+    left: 50%;
+    width: 350/@base;
+    transform: translateX(-50%);
+    margin-top: -60/@base;
+    font-size: 0;
+    text-align: center;
+}
+.user-avatar{
+    width: 128/@base;
+    height: 128/@base;
+    border-radius: 64/@base;
+    border: 4/@base solid #FFFFFF;
+    background-color: #FFFFFF;
+}
+.user-name{
+    font-size: 32/@base;
+    color: #333333;
+    width: 100%;
+    line-height: 42/@base;
+    margin-top: 12/@base;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    font-family: PingFang-SC-Medium;
+}
+.order-wrapper{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+}
+.item-box{
+    height: 144/@base;
+    flex: 1;
+    text-align: center;
+}
+.item-title{
+    font-size: 40/@base;
+    color: #333333;
+    margin-bottom: 16/@base;
+    line-height: 40/@base;
+    margin-top: 32/@base;
+}
+.item-desc{
+    font-size: 24/@base;
+    color: #666666;
+    line-height: 24/@base;
+}
+.member-card{
+    position: relative;
+    z-index: 2;
+    width: 702/@base;
+    height: 290/@base;
+    margin: 0 auto;
+    margin-top: -168/@base;
+    background-color: #FFFFFF;
+    border-radius: 20/@base;
+}
+.top-higher-bg{
+    margin-top: -218/@base;
+    background-image: linear-gradient(142deg, #FDDFBB 0%, #FFEEDB 34%, #F9D0A2 100%);
+}
+.line-item{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 27/@base;
+    width: 1/@base;
+    height: 90/@base;
+    background: rgba(0,0,0,0.08);
+}
+
+.member-info{
+    width: 702/@base;
+    margin-top: 21/@base;
+    margin-bottom: 60/@base;
+    background-color: #ffffff;
+    border-radius: 20/@base;
+    overflow-x: scroll;
+}
+.member-item{
+    width: 100%;
+    height: 120/@base;
+    width: 678/@base;
+    display: flex;
+    margin-left: 24/@base;
+    border-bottom: 1/@base solid rgba(0,0,0,0.08);
+}
+.member-img{
+    width: 60/@base;
+    height: 60/@base;
+    margin: 30/@base 20/@base 0 0;
+}
+.member-text{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 24/@base;
+    background-color: transparent;
+}
+.member-text-score{
+    display: flex;
+}
+.member-info-arrow{
+    width: 24/@base;
+    height: 24/@base;
+    margin-top: 48/@base;
+}
+.member-label{
+    height: 120/@base;
+    line-height: 120/@base;
+    font-size: 30/@base;
+    color: #1D2228;
+}
+.arrow-label{
+    height: 120/@base;
+    line-height: 120/@base;
+    font-size: 28/@base;
+    color: #999999;
+    margin-right: 8/@base;
+}
+
+.clear-border{
+    border: none;
+}
+.toast-title{
+    margin-top: 40/@base;
+    margin-bottom: 32/@base;
+    font-size: 32/@base;
+    color: #333333;
+    text-align: center;
+    line-height: 42/@base;
+}
+.toast-text{
+    font-size: 26/@base;
+    color: #333333;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 36/@base;
+    padding-bottom: 40/@base;
+    border-bottom: 1/@base solid #eee;
+}
+.toast-btn-box{
+    display: flex;
+}
+.toast-btn{
+    flex: 1;
+    height: 88/@base;
+    line-height: 88/@base;
+    font-size: 32/@base;
+    color: #333333;
+    text-align: center;
+}
+.confirm-btn{
+    color: #FF1940;
+    border-left: 1/@base solid #eee;
+}
+.get-phone-btn{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220/@base;
+    height: 200/@base;
+    background: transparent;
+}
+.entry-btn{
+    top: 0/@base;
+    width: 100%;
+    height: 250/@base;
+    background: transparent;
+}
+.get-phone-btn::after {
+    width: 0;
+    height: 0;
+}
+
+.buy-member-wrapper{
+    z-index: 1;
+    width: 702/@base;
+    overflow: hidden;
+    margin-top: -20/@base;
+    background-image: linear-gradient(90deg, #ECA253 0%, #BF7C46 100%);
+    background-image: linear-gradient(90deg, #4E4E4E 0%, #2C2C2C 100%);
+    border-radius: 0 0 20/@base 20/@base;
+}
+.to-buy-member{
+    position: relative;
+    margin-top: 44/@base;
+    margin-bottom: 20/@base;
+    display: flex;
+}
+.member-level-text{
+    width: 48/@base;
+    height: 60/@base;
+    margin-left: 20/@base;
+}
+.buy-line{
+    width: 1/@base;
+    height: 60/@base;
+    background: #606060;
+    margin: 0 20/@base;
+}
+.buy-member-step{
+    margin-right: 65/@base;
+    margin-top: -8/@base;
+}
+.set-middle{
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+.member-step-title{
+    font-size: 26/@base;
+    color: #FFD9B3;
+    line-height: 34/@base;
+}
+.member-step-detail{
+    display: flex;
+    margin-top: 10/@base;
+}
+.member-step-item{
+    opacity: .8;
+    position: relative;
+    font-size: 22/@base;
+    color: #FFD9B3;
+    line-height: 28/@base;
+}
+.set-high-color{
+    color: #FF5B77;
+}
+.step-detail-btn{
+    background-image: linear-gradient(135deg, rgba(255,234,204,0.99) 0%, #FFD9B3 100%);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20/@base;
+    border-radius: 24/@base;
+    width: 136/@base;
+    height: 48/@base;
+    font-size: 24/@base;
+    line-height: 48/@base;
+    color: #584031;
+    text-align: center;
+}
+.right-arrow{
+    width: 24/@base;
+    height: 24/@base;
+    background-image: url(http://h0.hucdn.com/open201947/6525b89784dab3d8_36x36.png);
+    background-size: 100% 100%;
+}
+
+
+.get-card-wrapper{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.8);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.get-card-box{
+    text-align: center;
+}
+.gift-bg{
+    width: 750/@base;
+    height: 640/@base;
+}
+.gift-close{
+    width: 80/@base;
+    height: 80/@base;
+    margin-top: 60/@base;
+}

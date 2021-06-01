@@ -1,0 +1,44 @@
+<!--
+ * @Description: audio
+ * @Autor: GaoSong
+ * @Date: 2020-05-20 14:57:41
+ * @LastEditors: GaoSong
+ * @LastEditTime: 2020-05-20 15:07:51
+--> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function getAudio() {
+        console.log(navigator.mediaDevices.getUserMedia())
+        // 老的浏览器可能根本没有实现 mediaDevices，所以我们可以先设置一个空的对象
+        // if (navigator.mediaDevices === undefined) {
+        //     navigator.mediaDevices = {};
+        // };
+        // if (navigator.mediaDevices.getUserMedia === undefined) {
+        //     let getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+        //     navigator.mediaDevices.getUserMedia = function(constraints) {
+        //         // 首先，如果有getUserMedia的话，就获得它
+        //         // 一些浏览器根本没实现它 - 那么就返回一个error到promise的reject来保持一个统一的接口
+        //         if (!getUserMedia) {
+        //             return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+        //         }
+        //         // 否则，为老的navigator.getUserMedia方法包裹一个Promise
+        //         return new Promise(function(resolve, reject) {
+        //             getUserMedia.call(navigator, constraints, resolve, reject);
+        //         });
+        //     };
+        // }
+    }
+    let myAudio = getAudio();
+    console.log(myAudio);
+</script>
+</html>
